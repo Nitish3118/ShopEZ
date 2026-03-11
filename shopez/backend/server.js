@@ -11,6 +11,10 @@ app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
+app.get("/", (req, res) => {
+  res.send("ShopEZ Backend is Live 🚀");
+});
+
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', require('./routes/products'));
@@ -28,7 +32,6 @@ mongoose.connect(MONGO_URI)
   })
   .catch(err => {
     console.error('❌ MongoDB connection failed:', err.message);
-    console.error('   Make sure MongoDB is running: mongod --dbpath /data/db');
   });
 
 const PORT = process.env.PORT || 5000;
