@@ -1,0 +1,82 @@
+.profile-page { padding: 40px 0 80px; }
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 40px;
+  padding: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  background: var(--gradient);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-weight: 900;
+  font-size: 32px;
+  font-family: var(--font-display);
+  flex-shrink: 0;
+}
+
+.profile-header h1 { font-size: 1.8rem; margin-bottom: 4px; }
+.profile-header p { color: var(--text-secondary); margin-bottom: 10px; font-size: 14px; }
+
+.role-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+}
+
+.role-badge.buyer { background: rgba(79,142,247,0.15); color: #4f8ef7; }
+.role-badge.seller { background: var(--accent-muted); color: var(--accent); }
+.role-badge.admin { background: rgba(239,68,68,0.1); color: var(--error); }
+
+.profile-form { display: flex; flex-direction: column; gap: 24px; }
+
+.profile-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+}
+
+.profile-section h3 {
+  font-size: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-display);
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label { font-size: 13px; font-weight: 600; color: var(--text-secondary); }
+
+.profile-actions {
+  display: flex;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .profile-grid { grid-template-columns: 1fr; }
+  .profile-header { flex-direction: column; text-align: center; }
+}

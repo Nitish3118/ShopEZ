@@ -1,0 +1,100 @@
+.orders-page { padding: 40px 0 80px; }
+.orders-page h1 { font-size: 2rem; margin-bottom: 8px; }
+.orders-sub { color: var(--text-secondary); margin-bottom: 32px; }
+
+.orders-list { display: flex; flex-direction: column; gap: 16px; }
+
+.order-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.order-card:hover { border-color: var(--border-accent); }
+
+.order-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.order-num {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.order-date { font-size: 13px; color: var(--text-muted); }
+
+.order-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: var(--font-display);
+}
+
+.order-items-preview {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.order-preview-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.order-preview-item img {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius);
+  object-fit: cover;
+  background: var(--bg-elevated);
+}
+
+.order-preview-item p { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+.order-preview-item span { font-size: 13px; color: var(--text-muted); }
+
+.more-items {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+  padding-left: 66px;
+}
+
+.order-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+}
+
+.tracking { font-size: 13px; color: var(--text-secondary); }
+
+.order-total { font-size: 14px; color: var(--text-secondary); }
+.order-total strong { color: var(--accent); font-family: var(--font-display); font-size: 16px; }
+
+.no-orders {
+  text-align: center;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: var(--text-secondary);
+}
+
+.no-orders svg { color: var(--text-muted); }
+.no-orders h3 { font-size: 1.5rem; color: var(--text-primary); }
