@@ -1,23 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { ArrowRight, Zap, Shield, Truck, RotateCcw } from 'lucide-react';
-import ProductCard from '../components/ProductCard';
-import './Home.css';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { ArrowRight, Zap, Shield, Truck, RotateCcw } from "lucide-react";
+import ProductCard from "../components/ProductCard";
+import "./Home.css";
+
+const API_URL = "https://shopez-t95h.onrender.com";
 
 const CATEGORIES = [
-  { name: 'Electronics', icon: '⚡', color: '#4f8ef7' },
-  { name: 'Accessories', icon: '👜', color: '#f7a14f' },
-  { name: 'Sports', icon: '🏃', color: '#4ff7a1' },
-  { name: 'Furniture', icon: '🪑', color: '#f74f8e' },
-  { name: 'Home', icon: '🏠', color: '#a14ff7' },
+  { name: "Electronics", icon: "⚡", color: "#4f8ef7" },
+  { name: "Accessories", icon: "👜", color: "#f7a14f" },
+  { name: "Sports", icon: "🏃", color: "#4ff7a1" },
+  { name: "Furniture", icon: "🪑", color: "#f74f8e" },
+  { name: "Home", icon: "🏠", color: "#a14ff7" },
 ];
 
 const FEATURES = [
-  { icon: <Truck size={24} />, title: 'Free Shipping', desc: 'On all orders over $50' },
-  { icon: <Shield size={24} />, title: 'Secure Payment', desc: '100% protected transactions' },
-  { icon: <RotateCcw size={24} />, title: 'Easy Returns', desc: '30-day hassle-free returns' },
-  { icon: <Zap size={24} />, title: 'Fast Delivery', desc: 'Same day for local orders' },
+  { icon: <Truck size={24} />, title: "Free Shipping", desc: "On all orders over $50" },
+  { icon: <Shield size={24} />, title: "Secure Payment", desc: "100% protected transactions" },
+  { icon: <RotateCcw size={24} />, title: "Easy Returns", desc: "30-day hassle-free returns" },
+  { icon: <Zap size={24} />, title: "Fast Delivery", desc: "Same day for local orders" },
 ];
 
 export default function Home() {
@@ -26,23 +28,35 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
     const fetchFeatured = async () => {
       try {
 
-        const { data } = await axios.get(
-          'https://shopez-t95h.onrender.com/api/products?featured=true&limit=8'
-        );
+        const res = await axios.get(`${API_URL}/api/products?featured=true&limit=8`);
 
-        setFeatured(data || []);
+        const data = res.data;
+
+        // handle all possible response formats
+        if (Array.isArray(data)) {
+          setFeatured(data);
+        } 
+        else if (Array.isArray(data.products)) {
+          setFeatured(data.products);
+        } 
+        else {
+          setFeatured([]);
+        }
 
       } catch (err) {
-        console.error("Featured Products Error:", err);
+        console.error("Products fetch error:", err);
+        setFeatured([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchFeatured();
+
   }, []);
 
   return (
@@ -79,27 +93,6 @@ export default function Home() {
             <Link to="/products?featured=true" className="btn btn-ghost btn-lg">
               Featured Picks
             </Link>
-          </div>
-
-          <div className="hero-stats">
-            <div className="stat">
-              <span className="stat-num">50K+</span>
-              <span>Products</span>
-            </div>
-
-            <div className="stat-divider" />
-
-            <div className="stat">
-              <span className="stat-num">200K+</span>
-              <span>Happy Buyers</span>
-            </div>
-
-            <div className="stat-divider" />
-
-            <div className="stat">
-              <span className="stat-num">4.9★</span>
-              <span>Rating</span>
-            </div>
           </div>
         </div>
       </section>
@@ -144,7 +137,7 @@ export default function Home() {
               key={i}
               to={`/products?category=${cat.name}`}
               className="category-card"
-              style={{ '--cat-color': cat.color }}
+              style={{ "--cat-color": cat.color }}
             >
               <span className="cat-icon">{cat.icon}</span>
               <span className="cat-name">{cat.name}</span>
@@ -170,7 +163,6 @@ export default function Home() {
           </Link>
         </div>
 
-
         {loading ? (
           <div className="loading-screen">
             <div className="spinner" />
@@ -178,45 +170,16 @@ export default function Home() {
         ) : (
           <div className="product-grid">
 
-            {featured?.map((p) => (
-              <ProductCard key={p._id} product={p} />
-            ))}
+            {featured.length > 0 ? (
+              featured.map((p) => (
+                <ProductCard key={p._id} product={p} />
+              ))
+            ) : (
+              <p>No featured products found.</p>
+            )}
 
           </div>
         )}
-
-      </section>
-
-
-      {/* Banner CTA */}
-      <section className="banner container">
-
-        <div className="banner-inner">
-
-          <div className="banner-orb" />
-
-          <div className="banner-content">
-            <span className="banner-tag">🎉 Limited Time Offer</span>
-
-            <h2>Become a Seller on ShopEZ</h2>
-
-            <p>
-              Reach millions of buyers. Set up your shop in minutes and grow
-              your business with powerful analytics.
-            </p>
-
-            <Link to="/register" className="btn btn-primary btn-lg">
-              Start Selling Today
-            </Link>
-          </div>
-
-          <div className="banner-visual">
-            <div className="banner-card">📊 Your Analytics</div>
-            <div className="banner-metric">↑ 42% Revenue Growth</div>
-            <div className="banner-metric-2">🚀 10K+ Active Stores</div>
-          </div>
-
-        </div>
 
       </section>
 
